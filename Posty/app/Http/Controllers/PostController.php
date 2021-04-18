@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class PostController extends Controllercl
 {
     public function index()
     {
@@ -13,6 +13,11 @@ class PostController extends Controller
 
     public function store(Request $request )
     {
-        dd("ok");
+        $this->validate($request,[
+            'body'=>'required'
+        ]);
+
+
+       
     }
 }
