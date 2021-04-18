@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+
 
 class RegisterController extends Controller
 {
@@ -21,6 +24,20 @@ class RegisterController extends Controller
             'email' => 'required|email|max:255',
             'password' => 'required|confirmed',
         ]);
-        dd($request->email);
+       
+        User::create(
+            [
+                'name'=>$request->name,
+                'username'=>$request->username,
+                'email'=>$request->email,
+                'password'=>Hash::make($request->password),
+
+            ]);
+
+
+        return redirect()->route('dashboard');
+
+
+
     }
 }
