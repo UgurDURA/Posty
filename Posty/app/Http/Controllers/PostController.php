@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
 
-class PostController extends Controllercl
+class PostController extends Controller
 {
     public function index()
     {
-        return view('posts.index');
+        $posts=Post::get();//collection
+
+
+        return view('posts.index',[
+            'posts'=>$posts
+        ]);
     }
 
     public function store(Request $request )
@@ -16,6 +22,12 @@ class PostController extends Controllercl
         $this->validate($request,[
             'body'=>'required'
         ]);
+
+        $request->user()->posts()->create($request->only('body'));
+
+        return back();
+
+
 
 
        
